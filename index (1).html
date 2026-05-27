@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Data & AI Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --surface: #EFEDE6;
+    --card: #FAFAF7;
+    --text: #1A1916;
+    --muted: #6B6860;
+    --hint: #A8A69F;
+    --accent: #2D6A4F;
+    --accent-light: #D8EDDF;
+    --accent-mid: #52B788;
+    --border: rgba(26,25,22,0.10);
+    --border-strong: rgba(26,25,22,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* --- NAV --- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2.5rem;
+    background: rgba(247,245,240,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px; color: var(--text); text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 400; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    font-size: 13px; padding: 7px 18px;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 100px; background: transparent;
+    color: var(--text); cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--surface); }
+
+  /* --- HERO --- */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; padding: 8rem 2.5rem 4rem;
+    max-width: 900px; margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 2rem;
+  }
+
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent-mid);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-eyebrow span {
+    font-size: 13px; color: var(--muted); letter-spacing: 0.04em;
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(42px, 7vw, 76px);
+    line-height: 1.1; font-weight: 400;
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.7s ease 0.1s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 17px; color: var(--muted); max-width: 520px;
+    line-height: 1.7; margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.7s ease 0.25s forwards;
+  }
+
+  .hero-actions {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .btn-primary {
+    padding: 12px 28px; font-size: 14px; font-weight: 500;
+    border-radius: 100px; border: none;
+    background: var(--accent); color: #fff;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: #1F4F39; transform: translateY(-1px); }
+
+  .btn-ghost {
+    padding: 12px 28px; font-size: 14px;
+    border-radius: 100px;
+    border: 0.5px solid var(--border-strong);
+    background: transparent; color: var(--text);
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-ghost:hover { background: var(--surface); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 2.5rem;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; color: var(--hint); letter-spacing: 0.06em;
+  }
+
+  .scroll-line {
+    width: 40px; height: 0.5px; background: var(--hint);
+    transform-origin: left; animation: growLine 1.2s ease 1s forwards;
+    transform: scaleX(0);
+  }
+
+  @keyframes growLine { to { transform: scaleX(1); } }
+
+  /* --- SECTIONS --- */
+  section {
+    max-width: 900px; margin: 0 auto;
+    padding: 5rem 2.5rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .section-header {
+    display: flex; align-items: baseline; gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-size: 11px; color: var(--hint);
+    letter-spacing: 0.08em; padding-top: 4px;
+  }
+
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px; font-weight: 400;
+  }
+
+  /* --- SKILLS --- */
+  .skills-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+
+  .skill-pill {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .skill-pill:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+
+  .skill-pill-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .skill-pill-tags { font-size: 12px; color: var(--muted); }
+
+  .skill-level {
+    display: flex; gap: 4px; margin-top: 10px;
+  }
+  .skill-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border-strong);
+  }
+  .skill-dot.filled { background: var(--accent-mid); }
+
+  /* --- PROJECTS --- */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: border-color 0.2s, transform 0.15s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent-mid);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .project-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-card.placeholder {
+    border-style: dashed; background: transparent;
+    align-items: center; justify-content: center;
+    min-height: 180px; cursor: pointer;
+    color: var(--hint);
+  }
+  .project-card.placeholder:hover { color: var(--muted); border-color: var(--border-strong); }
+
+  .project-tag {
+    font-size: 11px; padding: 3px 10px;
+    background: var(--accent-light); color: var(--accent);
+    border-radius: 100px; width: fit-content;
+    font-weight: 500; letter-spacing: 0.02em;
+  }
+
+  .project-name { font-size: 15px; font-weight: 500; }
+  .project-desc { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; }
+
+  .project-footer {
+    display: flex; gap: 14px; margin-top: auto;
+    padding-top: 10px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .project-link {
+    font-size: 12px; color: var(--muted); text-decoration: none;
+    display: flex; align-items: center; gap: 5px;
+    transition: color 0.2s;
+  }
+  .project-link:hover { color: var(--accent); }
+
+  .project-link svg { width: 13px; height: 13px; }
+
+  /* --- ABOUT --- */
+  .about-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: start;
+  }
+
+  .about-text p {
+    font-size: 16px; color: var(--muted);
+    line-height: 1.8; margin-bottom: 1.25rem;
+  }
+
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-aside { display: flex; flex-direction: column; gap: 10px; }
+
+  .info-row {
+    display: flex; justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.1rem;
+    background: var(--surface);
+    border-radius: 10px;
+    font-size: 13px;
+  }
+  .info-row .k { color: var(--muted); }
+  .info-row .v { font-weight: 500; }
+
+  .availability-badge {
+    display: flex; align-items: center; gap: 8px;
+    padding: 0.85rem 1.1rem;
+    background: var(--accent-light);
+    border-radius: 10px; font-size: 13px;
+    color: var(--accent); font-weight: 500;
+  }
+
+  /* --- CONTACT --- */
+  .contact-intro {
+    font-size: 18px; color: var(--muted);
+    max-width: 520px; margin-bottom: 2.5rem;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+  }
+
+  .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .contact-link {
+    display: flex; align-items: center; gap: 9px;
+    padding: 11px 22px; font-size: 13px; font-weight: 500;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 100px; text-decoration: none;
+    color: var(--text); background: transparent;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .contact-link:hover { background: var(--surface); transform: translateY(-1px); }
+  .contact-link svg { width: 16px; height: 16px; }
+
+  footer {
+    max-width: 900px; margin: 0 auto;
+    padding: 2rem 2.5rem;
+    border-top: 0.5px solid var(--border);
+    display: flex; justify-content: space-between;
+    align-items: center;
+    font-size: 12px; color: var(--hint);
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .hero, section { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .about-layout { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+    .hero-scroll { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">YN.</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="resume.pdf" class="nav-cta" download>Download CV</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">
+    <div class="status-dot"></div>
+    <span>Open to internships &amp; collaborations · Sherbrooke, QC</span>
+  </div>
+  <h1>Data science &amp; <em>artificial intelligence</em> student</h1>
+  <p class="hero-sub">
+    Year 3 IT student turning raw datasets into meaningful insight.
+    I build machine learning models, explore data, and document everything along the way.
+  </p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn-primary">View my projects</a>
+    <a href="#about" class="btn-ghost">About me</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Skills &amp; tools</h2>
+  </div>
+  <div class="skills-wrap">
+    <div class="skill-pill">
+      <div class="skill-pill-name">Python</div>
+      <div class="skill-pill-tags">pandas · NumPy · sklearn</div>
+      <div class="skill-level">
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot"></div>
+        <div class="skill-dot"></div>
+      </div>
+    </div>
+    <div class="skill-pill">
+      <div class="skill-pill-name">Machine learning</div>
+      <div class="skill-pill-tags">classification · regression · clustering</div>
+      <div class="skill-level">
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot"></div>
+        <div class="skill-dot"></div>
+        <div class="skill-dot"></div>
+      </div>
+    </div>
+    <div class="skill-pill">
+      <div class="skill-pill-name">Data visualization</div>
+      <div class="skill-pill-tags">Matplotlib · Seaborn · Plotly</div>
+      <div class="skill-level">
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot"></div>
+        <div class="skill-dot"></div>
+      </div>
+    </div>
+    <div class="skill-pill">
+      <div class="skill-pill-name">SQL</div>
+      <div class="skill-pill-tags">queries · joins · aggregation</div>
+      <div class="skill-level">
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot"></div>
+        <div class="skill-dot"></div>
+        <div class="skill-dot"></div>
+      </div>
+    </div>
+    <div class="skill-pill">
+      <div class="skill-pill-name">Git &amp; GitHub</div>
+      <div class="skill-pill-tags">version control · open source</div>
+      <div class="skill-level">
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot"></div>
+        <div class="skill-dot"></div>
+      </div>
+    </div>
+    <div class="skill-pill">
+      <div class="skill-pill-name">Jupyter Notebooks</div>
+      <div class="skill-pill-tags">EDA · prototyping · storytelling</div>
+      <div class="skill-level">
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot filled"></div>
+        <div class="skill-dot"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <div class="projects-grid">
+
+    <!-- Placeholder 1 -->
+    <div class="project-card placeholder">
+      <div style="font-size:28px; margin-bottom:8px;">+</div>
+      <div style="font-size:13px;">Your first project</div>
+      <div style="font-size:11px; margin-top:4px;">Coming soon</div>
+    </div>
+
+    <!-- Placeholder 2 -->
+    <div class="project-card placeholder">
+      <div style="font-size:28px; margin-bottom:8px;">+</div>
+      <div style="font-size:13px;">Your second project</div>
+      <div style="font-size:11px; margin-top:4px;">Coming soon</div>
+    </div>
+
+    <!-- Template (hidden, to copy when you have a project) -->
+    <!--
+    <div class="project-card">
+      <span class="project-tag">ML · Python</span>
+      <div class="project-name">Project Title Here</div>
+      <p class="project-desc">Short description of what the project does, what data you used, and what you learned from it.</p>
+      <div class="project-footer">
+        <a href="https://github.com/yourusername/repo" class="project-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="#" class="project-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Live demo
+        </a>
+      </div>
+    </div>
+    -->
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">About me</h2>
+  </div>
+  <div class="about-layout">
+    <div class="about-text">
+      <!-- ✏️ REPLACE THIS WITH YOUR OWN STORY -->
+      <p>I'm a third-year IT student at [Your University], focused on data science and artificial intelligence. I'm fascinated by how patterns hidden in raw data can lead to real decisions and impact.</p>
+      <p>I started with Python in my first year and have been building ever since — from simple scripts to machine learning pipelines. I believe the best way to learn is by building things and sharing them publicly.</p>
+      <p>Outside of studying, I [your hobbies / what drives you]. I'm actively looking for internship opportunities where I can contribute and keep growing.</p>
+    </div>
+    <div class="about-aside">
+      <div class="info-row"><span class="k">Program</span><span class="v">B.Sc. IT · Year 3</span></div>
+      <div class="info-row"><span class="k">University</span><span class="v">[Your University]</span></div>
+      <div class="info-row"><span class="k">Focus</span><span class="v">Data / AI / ML</span></div>
+      <div class="info-row"><span class="k">Location</span><span class="v">Sherbrooke, QC</span></div>
+      <div class="info-row"><span class="k">Languages</span><span class="v">French · English</span></div>
+      <div class="availability-badge">
+        <div class="status-dot"></div>
+        Open to internships &amp; collaborations
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Get in touch</h2>
+  </div>
+  <p class="contact-intro">"The best projects start with a conversation."</p>
+  <div class="contact-links">
+    <a href="https://linkedin.com/in/yourhandle" target="_blank" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://github.com/yourusername" target="_blank" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+    <a href="mailto:your@email.com" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+      Email me
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Your Name</span>
+  <span>Built with HTML &amp; hosted on GitHub Pages</span>
+</footer>
+
+</body>
+</html>
